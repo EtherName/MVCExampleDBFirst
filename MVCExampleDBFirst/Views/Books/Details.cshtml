@@ -1,0 +1,33 @@
+﻿@model MVCExampleDBFirst.EntityDataModel.BookVisits
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <h4>BookVisits</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.BookStorage.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookStorage.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Visit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Visit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.BookId }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

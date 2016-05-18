@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BooksStorageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookStorage">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookVisits">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="Visit" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BookStorage_BookVisits">
+          <End Role="BookVisits" Type="Self.BookVisits" Multiplicity="1" />
+          <End Role="BookStorage" Type="Self.BookStorage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BookVisits">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookStorage">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BooksStorageModelStoreContainer">
+          <EntitySet Name="BookStorage" EntityType="Self.BookStorage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookVisits" EntityType="Self.BookVisits" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BookStorage_BookVisits" Association="Self.FK_BookStorage_BookVisits">
+            <End Role="BookVisits" EntitySet="BookVisits" />
+            <End Role="BookStorage" EntitySet="BookStorage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BooksStorageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookStorage">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Author" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BookVisits" Relationship="Self.FK_BookStorage_BookVisits" FromRole="BookStorage" ToRole="BookVisits" />
+        </EntityType>
+        <EntityType Name="BookVisits">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="Visit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookStorage" Relationship="Self.FK_BookStorage_BookVisits" FromRole="BookVisits" ToRole="BookStorage" />
+        </EntityType>
+        <Association Name="FK_BookStorage_BookVisits">
+          <End Role="BookVisits" Type="Self.BookVisits" Multiplicity="1" />
+          <End Role="BookStorage" Type="Self.BookStorage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BookVisits">
+              <PropertyRef Name="BookId" />
+            </Principal>
+            <Dependent Role="BookStorage">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BooksStorageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookStorage" EntityType="Self.BookStorage" />
+          <EntitySet Name="BookVisits" EntityType="Self.BookVisits" />
+          <AssociationSet Name="FK_BookStorage_BookVisits" Association="Self.FK_BookStorage_BookVisits">
+            <End Role="BookVisits" EntitySet="BookVisits" />
+            <End Role="BookStorage" EntitySet="BookStorage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BooksStorageModelStoreContainer" CdmEntityContainer="BooksStorageEntities">
+          <EntitySetMapping Name="BookStorage">
+            <EntityTypeMapping TypeName="BooksStorageModel.BookStorage">
+              <MappingFragment StoreEntitySet="BookStorage">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookVisits">
+            <EntityTypeMapping TypeName="BooksStorageModel.BookVisits">
+              <MappingFragment StoreEntitySet="BookVisits">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Visit" ColumnName="Visit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
