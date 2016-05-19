@@ -14,6 +14,7 @@ namespace MVCExampleDBFirst.Controllers
         // GET: Books
         public ActionResult Index()
         {
+
             return View(context.BookStorage);
         }
 
